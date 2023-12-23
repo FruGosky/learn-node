@@ -5,7 +5,6 @@ const showCompanies = async (req, res) => {
 
 	res.render('pages/companies', {
 		companies,
-		url: req.url,
 	});
 };
 
@@ -17,7 +16,6 @@ const showCompany = async (req, res) => {
 	res.render('pages/company', {
 		name: company?.name,
 		title: company?.name,
-		url: req.url,
 	});
 };
 
