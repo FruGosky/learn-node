@@ -1,0 +1,3 @@
+partials/header.ejs
+partials/footer.ejs
+**/*.ejs

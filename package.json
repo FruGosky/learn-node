@@ -1,11 +1,15 @@
 {
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
-		"dev": "nodemon index.js -e js,json,html,css",
-		"debug": "nodemon --inspect index.js -e js,json,html,css echo \"Debugging on opera://inspect/#devices\""
+		"dev": "nodemon app/index.js -e js,ejs,json",
+		"debug": "nodemon --inspect app/index.js -e js,ejs,json echo \"Debugging on opera://inspect/#devices\""
 	},
 	"dependencies": {
-		"express": "^4.18.2"
+		"dotenv": "^16.3.1",
+		"ejs": "^3.1.9",
+		"express": "^4.18.2",
+		"express-ejs-layouts": "^2.5.1",
+		"mongoose": "^8.0.3"
 	},
 	"devDependencies": {
 		"nodemon": "^3.0.2"
