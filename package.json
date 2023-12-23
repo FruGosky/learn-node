@@ -1,0 +1,13 @@
+{
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon index.js -e js,json,html,css",
+		"debug": "nodemon --inspect index.js -e js,json,html,css echo \"Debugging on opera://inspect/#devices\""
+	},
+	"dependencies": {
+		"express": "^4.18.2"
+	},
+	"devDependencies": {
+		"nodemon": "^3.0.2"
+	}
+}
