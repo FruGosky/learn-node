@@ -5,12 +5,15 @@
         </label>
         <input
             type="text"
+            value="<%= form.name %>"
             name="name"
             class="form-control <%= errors?.name ? 'is-invalid' : '' %>"
             required
         >
         <% if (errors?.name) { %>
-            <div class="invalid-feedback"><%= errors.name.message %></div>
+            <div class="invalid-feedback">
+                <%= errors.name.message %>
+            </div>
         <% } %>
     </div>
 
@@ -20,6 +23,7 @@
         </label>
         <input
             type="text"
+            value="<%= form.slug %>"
             name="slug"
             class="form-control <%= errors?.slug ? 'is-invalid' : '' %>"
             required
@@ -28,7 +32,9 @@
             At least 3 signs
         </div>
         <% if (errors?.slug) { %>
-            <div class="invalid-feedback"><%= errors.slug.message %></div>
+            <div class="invalid-feedback">
+                <%= errors.slug.message %>
+            </div>
         <% } %>
     </div>
 
@@ -36,7 +42,12 @@
         <label for="" class="form-label">
             Employees count
         </label>
-        <input type="text" name="employeesCount" class="form-control">
+        <input
+            type="text"
+            value="<%= form.employeesCount %>"
+            name="employeesCount"
+            class="form-control"
+        >
     </div>
 
     <button class="btn btn-primary">

@@ -38,6 +38,7 @@ const createCompany = async (req, res) => {
 	} catch (e) {
 		res.render('pages/companies/create', {
 			errors: e.errors,
+			form: req.body,
 		});
 	}
 };
