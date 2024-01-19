@@ -43,9 +43,39 @@ const createCompany = async (req, res) => {
 	}
 };
 
+const showEditCompanyForm = async (req, res) => {
+	const { name } = req.params;
+	const company = await Company.findOne({ slug: name });
+
+	res.render('pages/companies/edit', {
+		form: company,
+	});
+};
+
+const editCompany = async (req, res) => {
+	const { name } = req.params;
+	const company = await Company.findOne({ slug: name });
+
+	company.name = req.body.name;
+	company.slug = req.body.slug;
+	company.employeesCount = req.body.employeesCount;
+
+	try {
+		await company.save();
+		res.redirect('/companies');
+	} catch (e) {
+		res.render('pages/companies/edit', {
+			errors: e.errors,
+			form: req.body,
+		});
+	}
+};
+
 module.exports = {
 	showCompany,
 	showCompanies,
 	showCreateCompanyForm,
 	createCompany,
+	showEditCompanyForm,
+	editCompany,
 };
