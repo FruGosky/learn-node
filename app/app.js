@@ -16,6 +16,9 @@ app.use(ejsLayouts);
 app.set('layout', 'layouts/main');
 app.use(express.static('public'));
 
+// body parser // application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
 // middleware
 app.use(require('./middleware/viewVariables'));
 
