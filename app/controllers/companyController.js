@@ -4,24 +4,31 @@ const showCompanies = async (req, res) => {
 	const { q, sort, sortDirection, employeeCountMin, employeeCountMax } =
 		req.query;
 
+	// create where object for query
 	const where = {};
 
+	// search by name
 	if (q) where.name = { $regex: q, $options: 'i' };
 
+	// filter by employee count min/max
 	if (employeeCountMin || employeeCountMax) {
 		where.employeesCount = {};
 		if (employeeCountMin) where.employeesCount.$gte = employeeCountMin;
 		if (employeeCountMax) where.employeesCount.$lte = employeeCountMax;
 	}
 
+	// create query
 	let query = Company.find(where);
 
+	// sort by asc/desc
 	if (sort && sortDirection) {
 		query = query.sort({ [sort]: sortDirection });
 	}
 
+	// exec query
 	const companies = await query.exec();
 
+	// render view
 	res.render('pages/companies/companies', {
 		companies,
 	});
