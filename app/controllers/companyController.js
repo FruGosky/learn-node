@@ -1,14 +1,20 @@
 const Company = require('../db/models/Company');
 
 const showCompanies = async (req, res) => {
-	const { q, sort, sortDirection } = req.query;
+	const { q, sort, sortDirection, employeeCountMin, employeeCountMax } =
+		req.query;
 
-	let query = Company.find({
-		name: {
-			$regex: q || '',
-			$options: 'i',
-		},
-	});
+	const where = {};
+
+	if (q) where.name = { $regex: q, $options: 'i' };
+
+	if (employeeCountMin || employeeCountMax) {
+		where.employeesCount = {};
+		if (employeeCountMin) where.employeesCount.$gte = employeeCountMin;
+		if (employeeCountMax) where.employeesCount.$lte = employeeCountMax;
+	}
+
+	let query = Company.find(where);
 
 	if (sort && sortDirection) {
 		query = query.sort({ [sort]: sortDirection });

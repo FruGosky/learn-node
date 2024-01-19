@@ -15,6 +15,8 @@
         <div class="col-3">
             <%- include('partials/sort.ejs') %>
 
+            <%- include('partials/filters.ejs') %>
+
             <button class="btn btn-primary mt-3">
                 Apply
             </button>
@@ -26,6 +28,9 @@
                     <div class="card-body">
                         <p class="h3 mb-4">
                             <%= company.name %>
+                        </p>
+                        <p>
+                            Workers: <%= company.employeesCount %>
                         </p>
                         <a
                             href="/companies/<%= company.slug %>"
