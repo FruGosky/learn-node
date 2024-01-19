@@ -1,15 +1,13 @@
-<form method="get">
-    <div class="mb-3 d-flex">
-        <input
-            type="text"
-            name="q"
-            class="form-control"
-            placeholder="Search..."
-            value="<%= query.q %>"
-        >
-        <button class="btn btn-primary ms-2">Search</button>
-    </div>
-</form>
+<div class="mb-3 d-flex">
+    <input
+        type="text"
+        name="q"
+        class="form-control"
+        placeholder="Search..."
+        value="<%= query.q %>"
+    >
+    <button class="btn btn-primary ms-2">Search</button>
+</div>
 
 <% if (query.q) { %>
     <p class="h5 mb-3">

@@ -1,14 +1,20 @@
 const Company = require('../db/models/Company');
 
 const showCompanies = async (req, res) => {
-	const { q } = req.query;
+	const { q, sort, sortDirection } = req.query;
 
-	const companies = await Company.find({
+	let query = Company.find({
 		name: {
-			$regex: q,
+			$regex: q || '',
 			$options: 'i',
 		},
 	});
+
+	if (sort && sortDirection) {
+		query = query.sort({ [sort]: sortDirection });
+	}
+
+	const companies = await query.exec();
 
 	res.render('pages/companies/companies', {
 		companies,

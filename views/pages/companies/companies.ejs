@@ -8,35 +8,76 @@
     </div>
 </div>
 
-<%- include('partials/search.ejs') %>
+<form>
+    <%- include('partials/search.ejs') %>
 
-<ul>
-    <% companies.forEach((company) => { %>
-        <div class="card bg-light mb-3">
-            <div class="card-body">
-                <p class="h3 mb-4">
-                    <%= company.name %>
-                </p>
-                <a
-                    href="/companies/<%= company.slug %>"
-                    class="btn btn-primary"
+    <div class="row">
+        <div class="col-3">
+            <label for="sort" class="form-label">Sort by</label>
+            <select name="sort" id="sort" class="form-control">
+                <option value="">Default</option>
+                <option
+                    value="name"
+                    <%= query.sort === 'name' ? 'selected' : '' %>
                 >
-                    Open
-                </a>
-                <a
-                    href="/admin/companies/<%= company.slug %>/edit"
-                    class="btn btn-warning"
+                    Name
+                </option>
+                <option
+                    value="employeesCount"
+                    <%= query.sort === 'employeesCount' ? 'selected' : '' %>
                 >
-                    Edit
-                </a>
-                <a
-                    href="/admin/companies/<%= company.slug %>/delete"
-                    class="btn btn-danger"
-                    onclick="return confirm('Are you sure?')"
+                    Employee
+                </option>
+            </select>
+            <label for="sortDirection" class="form-label">Sort Direction</label>
+            <select name="sortDirection" id="sortDirection" class="form-control">
+                <option
+                    value="asc"
+                    <%= query.sortDirection === 'asc' ? 'selected' : '' %>
                 >
-                    Delete
-                </a>
-            </div>
+                    Ascending
+                </option>
+                <option
+                    value="desc"
+                    <%= query.sortDirection === 'desc' ? 'selected' : '' %>
+                >
+                    Descending
+                </option>
+            </select>
+            <button class="btn btn-primary mt-3">
+                Apply
+            </button>
         </div>
-    <% }); %>
-</ul>
+
+        <div class="col-9">
+            <% companies.forEach((company) => { %>
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <p class="h3 mb-4">
+                            <%= company.name %>
+                        </p>
+                        <a
+                            href="/companies/<%= company.slug %>"
+                            class="btn btn-primary"
+                        >
+                            Open
+                        </a>
+                        <a
+                            href="/admin/companies/<%= company.slug %>/edit"
+                            class="btn btn-warning"
+                        >
+                            Edit
+                        </a>
+                        <a
+                            href="/admin/companies/<%= company.slug %>/delete"
+                            class="btn btn-danger"
+                            onclick="return confirm('Are you sure?')"
+                        >
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</form>
