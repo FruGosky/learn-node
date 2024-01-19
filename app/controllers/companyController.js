@@ -4,6 +4,9 @@ const showCompanies = async (req, res) => {
 	const { q, sort, sortDirection, employeeCountMin, employeeCountMax } =
 		req.query;
 
+	const page = req.query.page || 1;
+	const perPage = 2;
+
 	// create where object for query
 	const where = {};
 
@@ -13,12 +16,26 @@ const showCompanies = async (req, res) => {
 	// filter by employee count min/max
 	if (employeeCountMin || employeeCountMax) {
 		where.employeesCount = {};
-		if (employeeCountMin) where.employeesCount.$gte = employeeCountMin;
-		if (employeeCountMax) where.employeesCount.$lte = employeeCountMax;
+		if (employeeCountMin) {
+			where.employeesCount.$gte = Number(employeeCountMin);
+		}
+		if (employeeCountMax) {
+			where.employeesCount.$lte = Number(employeeCountMax);
+		}
 	}
 
 	// create query
 	let query = Company.find(where);
+
+	// get total count of results
+	const resultsCount = await query.clone().count();
+
+	// get total pages count
+	const pageCount = Math.ceil(resultsCount / perPage);
+
+	// pagination
+	query = query.skip((page - 1) * perPage);
+	query = query.limit(perPage);
 
 	// sort by asc/desc
 	if (sort && sortDirection) {
@@ -31,6 +48,9 @@ const showCompanies = async (req, res) => {
 	// render view
 	res.render('pages/companies/companies', {
 		companies,
+		page,
+		pageCount,
+		resultsCount,
 	});
 };
 

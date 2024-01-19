@@ -1,0 +1,54 @@
+<div class="d-flex flex-column align-items-center w-100">
+    <p>Results <%= companies.length %> of <%= resultsCount %></p>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <% if (Number(page)-1) { %>
+                <li class="page-item">
+                    <a
+                        href="#"
+                        class="page-link"
+                        data-page="<%= Number(page)-1 %>"
+                    >
+                        Previous
+                    </a>
+                </li>
+            <% } %>
+            <% for (let i=1; i<=pageCount; i++) { %>
+                <li class="page-item <%= page == i ? 'active' : '' %>">
+                    <a
+                        href="#"
+                        class="page-link"
+                        data-page="<%= i %>"
+                    >
+                        <%= i %>
+                    </a>
+                </li>
+            <% } %>
+            <% if (page != pageCount) { %>
+                <li class="page-item">
+                    <a
+                        href="#"
+                        class="page-link"
+                        data-page="<%= Number(page)+1 %>"
+                    >
+                        Next
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</div>
+
+<script>
+    const changePage = (e) => {
+        e.preventDefault();
+        const search = new URLSearchParams(window.location.search);
+        search.set('page', e.target.dataset.page);
+        const url = window.location.origin + window.location.pathname + '?' + search.toString();
+        window.location.href = url;
+    };
+
+    document.querySelectorAll('.pagination a').forEach((a) => {
+        a.addEventListener('click', changePage);
+    })
+</script>
