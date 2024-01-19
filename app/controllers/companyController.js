@@ -1,7 +1,14 @@
 const Company = require('../db/models/Company');
 
 const showCompanies = async (req, res) => {
-	const companies = await Company.find({});
+	const { q } = req.query;
+
+	const companies = await Company.find({
+		name: {
+			$regex: q,
+			$options: 'i',
+		},
+	});
 
 	res.render('pages/companies/companies', {
 		companies,
@@ -71,6 +78,17 @@ const editCompany = async (req, res) => {
 	}
 };
 
+const deleteCompany = async (req, res) => {
+	const { name } = req.params;
+
+	try {
+		await Company.deleteOne({ slug: name });
+		res.redirect('/companies');
+	} catch (e) {
+		console.error(e);
+	}
+};
+
 module.exports = {
 	showCompany,
 	showCompanies,
@@ -78,4 +96,5 @@ module.exports = {
 	createCompany,
 	showEditCompanyForm,
 	editCompany,
+	deleteCompany,
 };

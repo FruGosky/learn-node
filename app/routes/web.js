@@ -16,6 +16,7 @@ router.get(
 	companyController.showEditCompanyForm
 );
 router.post('/admin/companies/:name/edit', companyController.editCompany);
+router.get('/admin/companies/:name/delete', companyController.deleteCompany);
 
 router.get('*', errorController.showError(404));
 
