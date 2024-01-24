@@ -1,5 +1,8 @@
 <h1>Home page</h1>
 
 <% if(user) { %> 
-    <p>Witaj <%- user.email %> (<%- user._id %>)</p>
+    <p>Welcome <%- user.email %> (<%- user._id %>)</p>
+<% } else { %>
+    <p>Welcome on our page. This is a company browser.</p>
+    <p>Create account to add your own company!</p>
 <% } %>
