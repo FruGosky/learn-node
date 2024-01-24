@@ -34,8 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // middleware
-app.use(require('./middleware/viewVariables-middleware'));
-app.use(require('./middleware/user-middleware'));
+app.use('/', require('./middleware/viewVariables-middleware'));
+app.use('/', require('./middleware/user-middleware'));
+app.use('/admin', require('./middleware/isAuth-middleware'));
 
 // mount routes
 app.use(require('./routes/web'));
