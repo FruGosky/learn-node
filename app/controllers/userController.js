@@ -34,7 +34,7 @@ const login = async (req, res) => {
 		const user = await User.findOne({ email });
 		if (!user) throw new Error('User not found');
 
-		const isValidPassword = true;
+		const isValidPassword = user.comparePassword(password);
 		if (!isValidPassword) throw new Error('Password is not valid');
 
 		req.session.user = {
