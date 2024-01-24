@@ -1,11 +1,13 @@
 <div class="d-flex justify-content-between">
     <h1>Companies</h1>
 
-    <div class="d-flex">
-        <a href="/admin/companies/create" class="btn btn-primary mb-4">
-            Create
-        </a>
-    </div>
+    <% if (user) { %>
+        <div class="d-flex">
+            <a href="/admin/companies/create" class="btn btn-primary mb-4">
+                Create
+            </a>
+        </div>
+    <% } %>
 </div>
 
 <form>
@@ -38,19 +40,21 @@
                         >
                             Open
                         </a>
-                        <a
-                            href="/admin/companies/<%= company.slug %>/edit"
-                            class="btn btn-warning"
-                        >
-                            Edit
-                        </a>
-                        <a
-                            href="/admin/companies/<%= company.slug %>/delete"
-                            class="btn btn-danger"
-                            onclick="return confirm('Are you sure?')"
-                        >
-                            Delete
-                        </a>
+                        <% if (user) { %>
+                            <a
+                                href="/admin/companies/<%= company.slug %>/edit"
+                                class="btn btn-warning"
+                            >
+                                Edit
+                            </a>
+                            <a
+                                href="/admin/companies/<%= company.slug %>/delete"
+                                class="btn btn-danger"
+                                onclick="return confirm('Are you sure?')"
+                            >
+                                Delete
+                            </a>
+                        <% } %>
                     </div>
                 </div>
             <% }); %>
