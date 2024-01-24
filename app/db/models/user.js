@@ -19,10 +19,11 @@ const userSchema = new Schema({
 	},
 });
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function (next) {
 	const user = this;
 	const salt = bcrypt.genSaltSync(10);
-	const hash = bcrypt.hashSync(value, salt);
+	if (!user.isModified('password')) return next();
+	const hash = bcrypt.hashSync(user.password, salt);
 	user.password = hash;
 	next();
 });
