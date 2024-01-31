@@ -55,10 +55,35 @@ const logout = (req, res) => {
 	res.redirect('/');
 };
 
+const showProfileForm = (req, res) => {
+	res.render('pages/auth/profile', {
+		form: req.session.user,
+	});
+};
+
+const update = async (req, res) => {
+	const user = await User.findOne(req.session.user.id);
+	user.email = req.body.email;
+	if (req.body.password) user.password = req.body.password;
+
+	try {
+		await user.save();
+		req.session.user.email = user.email;
+		res.redirect('/admin/profile');
+	} catch (e) {
+		res.render('pages/auth/profile', {
+			errors: e.errors,
+			form: req.body,
+		});
+	}
+};
+
 module.exports = {
 	showRegisterForm,
 	register,
 	showLoginForm,
 	login,
 	logout,
+	showProfileForm,
+	update,
 };
