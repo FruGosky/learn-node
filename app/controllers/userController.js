@@ -61,7 +61,7 @@ const showProfileForm = (req, res) => {
 const update = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 
-	const user = await User.findOne(req.session.user.id);
+	const user = await User.findById(req.session.user._id);
 	user.firstName = firstName;
 	user.lastName = lastName;
 	user.email = email;
