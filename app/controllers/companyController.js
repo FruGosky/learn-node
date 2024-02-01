@@ -43,7 +43,7 @@ const showCompanies = async (req, res) => {
 	}
 
 	// exec query
-	const companies = await query.exec();
+	const companies = await query.populate('user').exec();
 
 	// render view
 	res.render('pages/companies/companies', {
@@ -71,11 +71,13 @@ const showCreateCompanyForm = (req, res) => {
 
 const createCompany = async (req, res) => {
 	const { name, slug, employeesCount } = req.body;
+	const { user } = req.session;
 
 	const company = new Company({
 		name,
 		slug,
 		employeesCount,
+		user: user._id,
 	});
 
 	try {

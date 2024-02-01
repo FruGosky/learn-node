@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { checkForbiddenString } = require('../validators');
+const User = require('./user');
 
 const companySchema = new Schema({
 	slug: {
@@ -18,6 +19,11 @@ const companySchema = new Schema({
 	employeesCount: {
 		type: Number,
 		default: 1,
+	},
+	user: {
+		type: mongoose.Types.ObjectId,
+		required: true,
+		ref: User, // or 'User' as string
 	},
 });
 

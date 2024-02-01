@@ -34,6 +34,9 @@
                         <p>
                             Workers: <%= company.employeesCount %>
                         </p>
+                        <p>
+                            Contact: <%= company.user?.email %>
+                        </p>
                         <a
                             href="/companies/<%= company.slug %>"
                             class="btn btn-primary"
