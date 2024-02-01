@@ -37,6 +37,9 @@
                         <p>
                             Contact: <%= company.user?.email %>
                         </p>
+                        <p>
+                            CEO: <%= company.user?.fullName %>
+                        </p>
                         <a
                             href="/companies/<%= company.slug %>"
                             class="btn btn-primary"

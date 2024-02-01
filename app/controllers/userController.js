@@ -37,10 +37,7 @@ const login = async (req, res) => {
 		const isValidPassword = user.comparePassword(password);
 		if (!isValidPassword) throw new Error('Password is not valid');
 
-		req.session.user = {
-			_id: user.id,
-			email: user.email,
-		};
+		req.session.user = user;
 		res.redirect('/');
 	} catch (e) {
 		res.render('pages/auth/login', {
@@ -62,13 +59,17 @@ const showProfileForm = (req, res) => {
 };
 
 const update = async (req, res) => {
+	const { firstName, lastName, email, password } = req.body;
+
 	const user = await User.findOne(req.session.user.id);
-	user.email = req.body.email;
-	if (req.body.password) user.password = req.body.password;
+	user.firstName = firstName;
+	user.lastName = lastName;
+	user.email = email;
+	if (password) user.password = password;
 
 	try {
 		await user.save();
-		req.session.user.email = user.email;
+		req.session.user = user;
 		res.redirect('/admin/profile');
 	} catch (e) {
 		res.render('pages/auth/profile', {

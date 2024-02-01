@@ -4,6 +4,8 @@ const { Schema } = mongoose;
 const { validateEmail } = require('../validators');
 
 const userSchema = new Schema({
+	firstName: String,
+	lastName: String,
 	email: {
 		type: String,
 		required: [true, 'Email is required'],
@@ -47,6 +49,11 @@ userSchema.methods = {
 		return bcrypt.compareSync(password, user.password);
 	},
 };
+
+userSchema.virtual('fullName').get(function () {
+	const user = this;
+	return `${user.firstName[0]}. ${user.lastName}`;
+});
 
 const User = mongoose.model('User', userSchema);
 
