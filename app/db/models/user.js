@@ -52,6 +52,7 @@ userSchema.methods = {
 
 userSchema.virtual('fullName').get(function () {
 	const user = this;
+	if (!user.firstName || !user.lastName) return user.email.split('@')[0];
 	return `${user.firstName[0]}. ${user.lastName}`;
 });
 
