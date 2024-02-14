@@ -1,85 +1,85 @@
 <form method="POST" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="" class="form-label">
-            Company name
-        </label>
-        <input
-            type="text"
-            value="<%= form.name %>"
-            name="name"
-            class="form-control <%= errors?.name ? 'is-invalid' : '' %>"
-            required
-        >
-        <% if (errors?.name) { %>
-            <div class="invalid-feedback">
-                <%= errors.name.message %>
-            </div>
-        <% } %>
-    </div>
+	<div class="mb-3">
+		<label for="" class="form-label">
+			Company name
+		</label>
+		<input
+			type="text"
+			value="<%= form.name %>"
+			name="name"
+			class="form-control <%= errors?.name ? 'is-invalid' : '' %>"
+			required
+		>
+		<% if (errors?.name) { %>
+			<div class="invalid-feedback">
+				<%= errors.name.message %>
+			</div>
+		<% } %>
+	</div>
 
-    <% if (form.image) {%>
-        <div class="row">
-            <div class="col">
-                <img
-                    src="/uploads/<%= form.image %>"
-                    class="img-fluid"
-                    alt="Company image"
-                >
-                <a
-                    href="/admin/companies/<%= form.slug %>/delete-image"
-                    class="btn btn-sm btn-danger"
-                >
-                    Delete
-                </a>
-            </div>
-        </div>
-    <% } %>
+	<% if (form.image) {%>
+		<div class="row">
+			<div class="col">
+				<img
+					src="/uploads/<%= form.image %>"
+					class="img-fluid"
+					alt="Company image"
+				>
+				<a
+					href="/admin/companies/<%= form.slug %>/delete-image"
+					class="btn btn-sm btn-danger"
+				>
+					Delete
+				</a>
+			</div>
+		</div>
+	<% } %>
 
-    <div class="mb-3">
-        <label for="image" class="form-label">Zdjęcie</label>
-        <input type="file" name="image" class="form-control" id="image">
-    </div>
+	<div class="mb-3">
+		<label for="image" class="form-label">Zdjęcie</label>
+		<input type="file" name="image" class="form-control" id="image">
+	</div>
 
-    <div class="mb-3">
-        <label for="" class="form-label">
-            Slug
-        </label>
-        <input
-            type="text"
-            value="<%= form.slug %>"
-            name="slug"
-            class="form-control <%= errors?.slug ? 'is-invalid' : '' %>"
-            required
-        >
-        <div class="form-text">
-            At least 3 signs
-        </div>
-        <% if (errors?.slug) { %>
-            <div class="invalid-feedback">
-                <%= errors.slug.message %>
-            </div>
-        <% } %>
-    </div>
+	<div class="mb-3">
+		<label for="" class="form-label">
+			Slug
+		</label>
+		<input
+			type="text"
+			value="<%= form.slug %>"
+			name="slug"
+			class="form-control <%= errors?.slug ? 'is-invalid' : '' %>"
+			required
+		>
+		<div class="form-text">
+			At least 3 signs
+		</div>
+		<% if (errors?.slug) { %>
+			<div class="invalid-feedback">
+				<%= errors.slug.message %>
+			</div>
+		<% } %>
+	</div>
 
-    <div class="mb-3">
-        <label for="" class="form-label">
-            Employees count
-        </label>
-        <input
-            type="number"
-            value="<%= form.employeesCount %>"
-            name="employeesCount"
-            class="form-control"
-        >
-    </div>
+	<div class="mb-3">
+		<label for="" class="form-label">
+			Employees count
+		</label>
+		<input
+			type="number"
+			value="<%= form.employeesCount %>"
+			name="employeesCount"
+			class="form-control"
+		>
+	</div>
 
-    <button class="btn btn-primary">
-        <%= buttonText %>
-    </button>
+	<button class="btn btn-primary">
+		<%= buttonText %>
+	</button>
 </form>
 
 <% if (errors) { %>
-    <div class="alert alert-danger mt-3">
-        Fix data in form
-    </div>
+	<div class="alert alert-danger mt-3">
+		Fix data in form
+	</div>
 <% } %>

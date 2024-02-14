@@ -1,86 +1,86 @@
 <div class="d-flex justify-content-between">
-    <h1>Companies</h1>
+	<h1>Companies</h1>
 
-    <% if (user) { %>
-        <div class="d-flex">
-            <a href="/admin/companies/create" class="btn btn-primary mb-4">
-                Create
-            </a>
-        </div>
-    <% } %>
+	<% if (user) { %>
+		<div class="d-flex">
+			<a href="/admin/companies/create" class="btn btn-primary mb-4">
+				Create
+			</a>
+		</div>
+	<% } %>
 </div>
 
 <form>
-    <%- include('partials/search.ejs') %>
+	<%- include('partials/search.ejs') %>
 
-    <div class="row">
-        <div class="col-3">
-            <%- include('partials/sort.ejs') %>
+	<div class="row">
+		<div class="col-3">
+			<%- include('partials/sort.ejs') %>
 
-            <%- include('partials/filters.ejs') %>
+			<%- include('partials/filters.ejs') %>
 
-            <button class="btn btn-primary mt-3">
-                Apply
-            </button>
-        </div>
+			<button class="btn btn-primary mt-3">
+				Apply
+			</button>
+		</div>
 
-        <div class="col-9">
-            <% companies.forEach((company) => { %>
-                <div class="card bg-light mb-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3">
-                                <img
-                                    src="/uploads/<%= company.image %>"
-                                    class="img-fluid"
-                                    alt="Company image"
-                                >
-                            </div>
-                            <div class="col-9">
-                                <p class="h3 mb-4">
-                                    <%= company.name %>
-                                </p>
-                                <p>
-                                    Workers: <%= company.employeesCount %>
-                                </p>
-                                <p>
-                                    Contact: <%= company.user?.email %>
-                                </p>
-                                <p>
-                                    CEO: <%= company.user?.fullName %>
-                                </p>
-                                <a
-                                    href="/companies/<%= company.slug %>"
-                                    class="btn btn-primary"
-                                >
-                                    Open
-                                </a>
-                                <% if (user) { %>
-                                    <a
-                                        href="/admin/companies/<%= company.slug %>/edit"
-                                        class="btn btn-warning"
-                                    >
-                                        Edit
-                                    </a>
-                                    <a
-                                        href="/admin/companies/<%= company.slug %>/delete"
-                                        class="btn btn-danger"
-                                        onclick="return confirm('Are you sure?')"
-                                    >
-                                        Delete
-                                    </a>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <% }); %>
-        </div>
-    </div>
+		<div class="col-9">
+			<% companies.forEach((company) => { %>
+				<div class="card bg-light mb-3">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-3">
+								<img
+									src="/uploads/<%= company.image %>"
+									class="img-fluid"
+									alt="Company image"
+								>
+							</div>
+							<div class="col-9">
+								<p class="h3 mb-4">
+									<%= company.name %>
+								</p>
+								<p>
+									Workers: <%= company.employeesCount %>
+								</p>
+								<p>
+									Contact: <%= company.user?.email %>
+								</p>
+								<p>
+									CEO: <%= company.user?.fullName %>
+								</p>
+								<a
+									href="/companies/<%= company.slug %>"
+									class="btn btn-primary"
+								>
+									Open
+								</a>
+								<% if (user) { %>
+									<a
+										href="/admin/companies/<%= company.slug %>/edit"
+										class="btn btn-warning"
+									>
+										Edit
+									</a>
+									<a
+										href="/admin/companies/<%= company.slug %>/delete"
+										class="btn btn-danger"
+										onclick="return confirm('Are you sure?')"
+									>
+										Delete
+									</a>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% }); %>
+		</div>
+	</div>
 
-    <div class="row">
-        <div class="col">
-            <%- include('partials/pagination.ejs') %>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col">
+			<%- include('partials/pagination.ejs') %>
+		</div>
+	</div>
 </form>

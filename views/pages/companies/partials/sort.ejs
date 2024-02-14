@@ -1,35 +1,35 @@
 <label for="sort" class="form-label">
-    Sort by
+	Sort by
 </label>
 <select name="sort" id="sort" class="form-control">
-    <option value="">Default</option>
-    <option
-        value="name"
-        <%= query.sort === 'name' ? 'selected' : '' %>
-    >
-        Name
-    </option>
-    <option
-        value="employeesCount"
-        <%= query.sort === 'employeesCount' ? 'selected' : '' %>
-    >
-        Employee
-    </option>
+	<option value="">Default</option>
+	<option
+		value="name"
+		<%= query.sort === 'name' ? 'selected' : '' %>
+	>
+		Name
+	</option>
+	<option
+		value="employeesCount"
+		<%= query.sort === 'employeesCount' ? 'selected' : '' %>
+	>
+		Employee
+	</option>
 </select>
 <label for="sortDirection" class="form-label">
-    Sort Direction
+	Sort Direction
 </label>
 <select name="sortDirection" id="sortDirection" class="form-control">
-    <option
-        value="asc"
-        <%= query.sortDirection === 'asc' ? 'selected' : '' %>
-    >
-        Ascending
-    </option>
-    <option
-        value="desc"
-        <%= query.sortDirection === 'desc' ? 'selected' : '' %>
-    >
-        Descending
-    </option>
+	<option
+		value="asc"
+		<%= query.sortDirection === 'asc' ? 'selected' : '' %>
+	>
+		Ascending
+	</option>
+	<option
+		value="desc"
+		<%= query.sortDirection === 'desc' ? 'selected' : '' %>
+	>
+		Descending
+	</option>
 </select>
