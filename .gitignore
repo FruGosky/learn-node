@@ -21,3 +21,5 @@ Thumbs.db
 # Ignore dependencies and build artifacts
 package-lock.json
 yarn.lock
+
+public/uploads

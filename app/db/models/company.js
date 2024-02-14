@@ -25,6 +25,7 @@ const companySchema = new Schema({
 		required: true,
 		ref: User, // or 'User' as string
 	},
+	image: String,
 });
 
 const Company = mongoose.model('Company', companySchema);

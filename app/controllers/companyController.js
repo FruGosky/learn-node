@@ -1,4 +1,5 @@
 const Company = require('../db/models/Company');
+const fs = require('fs');
 
 const showCompanies = async (req, res) => {
 	const { q, sort, sortDirection, employeeCountMin, employeeCountMax } =
@@ -72,12 +73,14 @@ const showCreateCompanyForm = (req, res) => {
 const createCompany = async (req, res) => {
 	const { name, slug, employeesCount } = req.body;
 	const { user } = req.session;
+	const image = req.file.filename;
 
 	const company = new Company({
 		name,
 		slug,
 		employeesCount,
 		user: user._id,
+		image,
 	});
 
 	try {
@@ -107,6 +110,12 @@ const editCompany = async (req, res) => {
 	company.name = req.body.name;
 	company.slug = req.body.slug;
 	company.employeesCount = req.body.employeesCount;
+	if (req.file.filename && company.image) {
+		fs.unlinkSync(`public/uploads/${company.image}`);
+	}
+	if (req.file.filename) {
+		company.image = req.file.filename;
+	}
 
 	try {
 		await company.save();
@@ -121,9 +130,27 @@ const editCompany = async (req, res) => {
 
 const deleteCompany = async (req, res) => {
 	const { name } = req.params;
+	const company = await Company.findOne({ slug: name });
 
 	try {
+		if (company.image) {
+			fs.unlinkSync(`public/uploads/${company.image}`);
+		}
 		await Company.deleteOne({ slug: name });
+		res.redirect('/companies');
+	} catch (e) {
+		console.error(e);
+	}
+};
+
+const deleteImage = async (req, res) => {
+	const { name } = req.params;
+	const company = await Company.findOne({ slug: name });
+
+	try {
+		fs.unlinkSync(`public/uploads/${company.image}`);
+		company.image = '';
+		await company.save();
 		res.redirect('/companies');
 	} catch (e) {
 		console.error(e);
@@ -138,4 +165,5 @@ module.exports = {
 	showEditCompanyForm,
 	editCompany,
 	deleteCompany,
+	deleteImage,
 };
