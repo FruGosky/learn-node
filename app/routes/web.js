@@ -42,6 +42,8 @@ router.get(
 	companyController.deleteImage
 );
 
+router.get('/csv', companyController.getCSV);
+
 router.get('*', errorController.showError(404));
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const Company = require('../db/models/Company');
 const fs = require('fs');
+const { Parser } = require('json2csv');
 
 const showCompanies = async (req, res) => {
 	const { q, sort, sortDirection, employeeCountMin, employeeCountMax } =
@@ -157,6 +158,33 @@ const deleteImage = async (req, res) => {
 	}
 };
 
+const getCSV = async (req, res) => {
+	const fields = [
+		{
+			label: 'Nazwa',
+			value: 'name',
+		},
+		{
+			label: 'URL',
+			value: 'slug',
+		},
+		{
+			label: 'Employees Count',
+			value: 'employeesCount',
+		},
+	];
+
+	const data = await Company.find();
+	const fileName = 'companies.csv';
+
+	const json2csv = new Parser({ fields });
+	const csv = json2csv.parse(data);
+
+	res.header('Content-Type', 'text/csv');
+	res.attachment(fileName);
+	res.send(csv);
+};
+
 module.exports = {
 	showCompany,
 	showCompanies,
@@ -166,4 +194,5 @@ module.exports = {
 	editCompany,
 	deleteCompany,
 	deleteImage,
+	getCSV,
 };
