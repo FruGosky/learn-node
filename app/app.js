@@ -4,11 +4,27 @@ const ejsLayouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { sessionKeySecret } = require('./config');
+const helmet = require('helmet');
+const rateLimiterMiddleware = require('./middleware/rateLimiter-middleware');
 
 const app = express();
 
 // init database
 require('./db/mongoose');
+
+// security
+app.use(
+	helmet({
+		contentSecurityPolicy: {
+			directives: {
+				defaultSrc: ["'self'"],
+				scriptSrc: ["'self'", 'cdn.jsdelivr.net'],
+				styleSrc: ["'self'", 'cdn.jsdelivr.net'],
+			},
+		},
+	})
+);
+app.use(rateLimiterMiddleware);
 
 app.use(
 	session({
